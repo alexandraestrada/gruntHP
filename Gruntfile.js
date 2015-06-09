@@ -38,24 +38,41 @@ module.exports = function(grunt) {
         var htmlContext = grunt.file.read(grunt.config.get("watch.src")+"/index2.html");
         $ = cheerio.load(htmlContext);
        
-        $('img').each(function() {
+        $('area').each(function() {
             var alt = $(this).attr('alt');
             var href = $(this).attr('href');
-            var desired = alt.replace(/[^\w\s]/gi, '');
+            var desired = alt
             var baseReplace = "${baseUrl}";
-            var isStringUrl = /(http(s)?:\/\/)?(www)?1?.?macys.com/.test(href)  
+            var isBaseUrl = /(http(s)?:\/\/)?(www)?1?.?macys.com/.test(href)  
             var isnum = /^\d+$/.test(href);
+            var isStandardUrl = /standard/.test(href)
+            
             if (isnum) {    
-                $(this).attr('href', function(i,v) {
-                    var cat = href.match(/^\d+$/).toString();
-                    return "${catUrl}" + href +'&${cm_re}'+ cat + ':' + desired;
-                })
+                var numberString = $(this).attr('href').toString()
+                if (numberString.length <=5) {
+                    $(this).attr('href', '${catUrl}' + href +'&${cm_re}'+ numberString + ':' + desired)
+                }
+                else {
+                    $(this).attr('href', "javascript:pop('${baseUrl}/popup.ognc?popupID=" + numberString + "&${cm_re}:exclusions and details','myDynaPop','scrollbars=yes,width=365,height=600')")
+                }
+
             }
-            else if(isStringUrl) {     
+            else if(isBaseUrl) {     
                  $(this).attr('href',href.replace(/(http(s)?:\/\/)?(www)?1?.?macys.com/, baseReplace));
                  href = $(this).attr('href')  
                  href.indexOf('?') === -1 ? $(this).attr('href', href +'?${cm_re}:'+ desired) : $(this).attr('href', href + '&${cm_re}:'+ desired)  
-            }                       
+            } 
+            else if(isStandardUrl) {
+                $(this).attr('href', function(i, v) {
+                     desired = desired.replace(/\s+/g, '');
+                     return '${' + desired + '_SL}'
+
+                })
+            }   
+            else {
+                 href = $(this).attr('href');
+                href.indexOf('?') === -1 ? $(this).attr('href', href +'?${cm_re}:'+ desired) : $(this).attr('href', href + '&${cm_re}:'+ desired)
+            }                   
         })
         grunt.file.write(grunt.config.get("watch.src")+"/test.html", $.html());
         //grunt.log.write('Logging some stuff...'+grunt.config.process("jshint")).ok();
