@@ -41,7 +41,7 @@ module.exports = function(grunt) {
         $('area').each(function() {
             var alt = $(this).attr('alt');
             var href = $(this).attr('href');
-            var desired = alt
+            // var alt = alt.replace(/[^\w\s]/gi, '');
             var baseReplace = "${baseUrl}";
             var isBaseUrl = /(http(s)?:\/\/)?(www)?1?.?macys.com/.test(href)  
             var isnum = /^\d+$/.test(href);
@@ -50,7 +50,7 @@ module.exports = function(grunt) {
             if (isnum) {    
                 var numberString = $(this).attr('href').toString()
                 if (numberString.length <=5) {
-                    $(this).attr('href', '${catUrl}' + href +'&${cm_re}'+ numberString + ':' + desired)
+                    $(this).attr('href', '${catUrl}' + href +'&${cm_re}'+ numberString + ':' + alt)
                 }
                 else {
                     $(this).attr('href', "javascript:pop('${baseUrl}/popup.ognc?popupID=" + numberString + "&${cm_re}:exclusions and details','myDynaPop','scrollbars=yes,width=365,height=600')")
@@ -60,18 +60,18 @@ module.exports = function(grunt) {
             else if(isBaseUrl) {     
                  $(this).attr('href',href.replace(/(http(s)?:\/\/)?(www)?1?.?macys.com/, baseReplace));
                  href = $(this).attr('href')  
-                 href.indexOf('?') === -1 ? $(this).attr('href', href +'?${cm_re}:'+ desired) : $(this).attr('href', href + '&${cm_re}:'+ desired)  
+                 href.indexOf('?') === -1 ? $(this).attr('href', href +'?${cm_re}:'+ alt) : $(this).attr('href', href + '&${cm_re}:'+ alt)  
             } 
             else if(isStandardUrl) {
                 $(this).attr('href', function(i, v) {
-                     desired = desired.replace(/\s+/g, '');
-                     return '${' + desired + '_SL}'
+                     alt = alt.replace(/\s+/g, '');
+                     return '${' + alt + '_SL}'
 
                 })
             }   
             else {
                  href = $(this).attr('href');
-                href.indexOf('?') === -1 ? $(this).attr('href', href +'?${cm_re}:'+ desired) : $(this).attr('href', href + '&${cm_re}:'+ desired)
+                href.indexOf('?') === -1 ? $(this).attr('href', href +'?${cm_re}:'+ alt) : $(this).attr('href', href + '&${cm_re}:'+ alt)
             }                   
         })
         grunt.file.write(grunt.config.get("watch.src")+"/test.html", $.html());
