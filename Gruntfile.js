@@ -35,7 +35,7 @@ module.exports = function(grunt) {
     grunt.registerTask('coremetrics', function() {
         var cheerio = require('cheerio');
        
-        var htmlContext = grunt.file.read(grunt.config.get("watch.src")+"/index2.html");
+        var htmlContext = grunt.file.read(grunt.config.get("watch.src")+"/index.html");
         $ = cheerio.load(htmlContext);
        
         $('area').each(function() {
@@ -74,14 +74,14 @@ module.exports = function(grunt) {
                 href.indexOf('?') === -1 ? $(this).attr('href', href +'?${cm_re}:'+ alt) : $(this).attr('href', href + '&${cm_re}:'+ alt)
             }                   
         })
-        grunt.file.write(grunt.config.get("watch.src")+"/test.html", $.html());
+        grunt.file.write(grunt.config.get("watch.src")+"/updated.html", $.html());
         //grunt.log.write('Logging some stuff...'+grunt.config.process("jshint")).ok();
 
     });
     
     grunt.registerTask('spell-check', function() {
         var cheerio = require('cheerio');
-        var htmlContext = grunt.file.read(grunt.config.get("watch.src")+"/index2.html");
+        var htmlContext = grunt.file.read(grunt.config.get("watch.src")+"/index.html");
         $ = cheerio.load(htmlContext);
         var imageAlt = "";
         $('img').each(function() {
