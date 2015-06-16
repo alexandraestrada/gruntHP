@@ -1,3 +1,4 @@
+var cheerio = require('cheerio');
 module.exports = function(grunt) {
     grunt.initConfig({
         watch: {
@@ -32,8 +33,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-spell');
 
     var tag = grunt.option('target') || 'dev';
-    grunt.registerTask('coremetrics', function() {
-        var cheerio = require('cheerio');
+    grunt.registerTask('hpCoremetrics', function() {
+        
        
         var htmlContext = grunt.file.read(grunt.config.get("watch.src")+"/index.html");
         $ = cheerio.load(htmlContext);
@@ -80,25 +81,28 @@ module.exports = function(grunt) {
     });
     
     grunt.registerTask('spell-check', function() {
-        var cheerio = require('cheerio');
         var htmlContext = grunt.file.read(grunt.config.get("watch.src")+"/index.html");
         $ = cheerio.load(htmlContext);
         var imageAlt = "";
+        var areaAlt = "";
         $('img').each(function() {
             imageAlt = imageAlt + $(this).attr('alt') + '\n'
         })
-        grunt.file.write(grunt.config.get("watch.src")+"/index.txt", imageAlt );
+        $('area').each(function() {
+            imageAlt = imageAlt + $(this).attr('alt') + '\n'
+        })
+        grunt.file.write(grunt.config.get("watch.src")+"/index.txt", imageAlt,areaAlt );
    
 
 
     })
 
-    grunt.registerTask('unitTesting', function(val) {
+    grunt.registerTask('homepage', function(val) {
     console.log(val);
     grunt.config.set('watch.src', val);
     grunt.task.run('imagemin'); 
-    grunt.task.run('coremetrics');
-    grunt.task.run('spell-check')
+    grunt.task.run('hpCoremetrics');
+    grunt.task.run('spell-check');
     grunt.task.run('spell');
     //grunt.task.run('watch'); 
 
