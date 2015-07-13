@@ -1,0 +1,82 @@
+<jsp:directive.include file="/web20/global/tagLibs.jsp" />
+<c:set var="hpDate" value="2015.07.15" scope="request" />
+<c:set var="hpAssets" value="${baseUrlAssets}/dyn_img/homepage/2015/07/15/" scope="request" />
+<c:set var="hideContainerBorder" value="true" scope="request" /><!-- This c:set is optional if removed or set to true the borders on the homepage will be removed -->
+<!-- add floating side banner code here if needed-->
+<jsp:directive.include file="/dyn_img/homepage/common/standardLinking.jsp" />
+
+
+<style>
+body.NavAppHomePage #bd {
+	width: 960px !important;
+}
+row{
+	margin:0;
+}
+</style>
+<div style="position: absolute; width: 108px; height: 25px; left: 832px; top: 83px;"><tiles:insertDefinition name="homepageClickToCopy">
+    <tiles:putAttribute name="creativeFeatureVersion" value="1.0" />
+    <tiles:putAttribute name="width" value="84" />
+    <tiles:putAttribute name="height" value="25" />
+    <tiles:putAttribute name="clipboard_text" value="DEALS" />
+</tiles:insertDefinition></div>
+
+	
+	<div class="row">
+		<div class="small-16 columns">
+			<img src="" alt="" height="" width="">
+		</div>
+	</div>
+	
+	<div class="row collapse">
+		<div class="small-8 columns">
+			<img src="" alt="" height="" width="">
+
+		</div>
+		<div class="small-8 columns">
+			<img src="" alt="" height="" width="">
+
+		</div>
+	</div>
+	<div class="row collapse">
+		<div class="small-8 columns">
+			<img src="" alt="" height="" width="">
+
+		</div>
+		<div class="small-8 columns">
+			<img src="" alt="" height="" width="">
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="small-16 columns">
+			<img src="" alt="" height="" width="">
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="small-16 columns">
+			<img src="" alt="" height="" width="">
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="small-16 columns">
+			<img src="" alt="" height="" width="">
+
+		</div>
+	</div>
+
+	<ul class="large-block-grid-3 nospacing">
+	  <li>
+		<img src="" alt="" height="" width="">
+	  </li>
+	  <li>
+		<img src="" alt="" height="" width="">
+	  </li>
+	  <li>
+	    <img src="" alt="" height="" width="">
+	  </li>
+	</ul>
+
+
