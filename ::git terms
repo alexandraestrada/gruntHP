@@ -1,0 +1,18 @@
+//git terms
+
+git init 
+
+//transform a current directory into a repository.
+//ads a '.git'  --sub directory in project root that contains all necess. meta data
+
+git init <directory>
+
+//create empty git repo inside given directory name 
+
+git clone <repo>
+
+//copies existing repository.
+//creates a 'clone'. Meaning it contains everything of it's original, but acts completely independent of it.
+
+
+
